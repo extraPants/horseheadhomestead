@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horsehead Homestead | Coming Soon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #5c6f56; /* Sage/Forest Green */
+            --secondary: #9e7b56; /* Warm Wood/Dirt */
+            --accent: #dca134; /* Sunflower Yellow */
+            --dark: #2c2520; /* Deep Charcoal/Brown */
+            --light: #faf7f2; /* Cream/Warm White */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        header {
+            background: linear-gradient(rgba(44, 37, 32, 0.5), rgba(44, 37, 32, 0.8)), 
+                        url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=2070') no-repeat center center/cover;
+            color: var(--light);
+            text-align: center;
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .logo-area h1 {
+            font-family: 'Caveat Brush', cursive;
+            font-size: 5rem;
+            color: var(--accent);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+        }
+
+        .logo-area p {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            max-width: 600px;
+            margin: 0 auto 20px auto;
+        }
+
+        /* Coming Soon Badge */
+        .coming-soon-badge {
+            display: inline-block;
+            font-family: 'Caveat Brush', cursive;
+            font-size: 1.8rem;
+            color: var(--light);
+            background-color: rgba(92, 111, 86, 0.85); /* Transparent Sage */
+            padding: 10px 30px;
+            border-radius: 50px;
+            border: 2px dashed var(--accent);
+            margin: 20px 0 35px 0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Email Form */
+        .signup-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 8px;
+            border-radius: 50px;
+            display: flex;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .signup-form input[type="email"] {
+            flex: 1;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .signup-form button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .signup-form button:hover {
+            background: #465341;
+        }
+
+        /* Main Content / Grid */
+        main {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 50px auto;
+        }
+
+        .intro h2 {
+            font-family: 'Caprasimo', cursive;
+            color: var(--primary);
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            border-bottom: 4px solid var(--secondary);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: var(--dark);
+            color: var(--light);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo-area h1 { font-size: 2.5rem; }
+            .logo-area p { font-size: 1.2rem; }
+            .coming-soon-badge { font-size: 1.4rem; padding: 8px 20px; }
+            .signup-form {
+                flex-direction: column;
+                background: transparent;
+                box-shadow: none;
+                gap: 10px;
+                padding: 0;
+            }
+            .signup-form input[type="email"], 
+            .signup-form button {
+                width: 100%;
+                border-radius: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <h1>Horsehead Homestead</h1>
+            <p>9 People. 2 Dogs. Countless Chickens. Big Adventures.</p>
+        </div>
+
+        <div class="coming-soon-badge">Coming Soon</div>
+
+        <form class="signup-form" action="#" method="POST">
+            <input type="email" placeholder="Enter your email for homestead updates..." required>
+            <button type="submit">Join the Chaos</button>
+        </form>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h2>What are the 7 kids up to?</h2>
+            <p>From the kitchen table to the woodshed, life at Horsehead Homestead is never quiet. We're building a digital porch where we can share our favorite disasters, triumphs, and everything in between. Here is a sneak peek at what's brewing:</p>
+        </section>
+
+        <section class="grid">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-icon"> 🐓 </div>
+                    <h3>Chickens & Dogs</h3>
+                    <p>Chasing heritage breeds, gathering breakfast, and keeping the pups out of the coop (usually).</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-icon"> 🌱 </div>
+                    <h3>Gardens & Fairy Magic</h3>
+                    <p>Sustaining a family of 9 with homegrown veggies while building miniature enchanted worlds in the roots.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-icon"> 📚 </div>
+                    <h3>Homeschool & Games</h3>
+                    <p>Where lessons turn into custom-made board games and recess consists of epic backyard trick shot challenges.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-icon"> 🪵 </div>
+                    <h3>Wood, Sweat & Tears</h3>
+                    <p>Chopping, stacking, and prepping for winter. It's the ultimate gym membership, and everyone's invited.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-icon"> 🥖 </div>
+                    <h3>Baking & Cooking</h3>
+                    <p>Mass-producing sourdough, experimental wood-fired recipes, and feeding a small army three times a day.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-icon"> 🤪 </div>
+                    <h3>The Antics</h3>
+                    <p>With 7 kids, if something isn't currently breaking, flying through the air, or laughing hysterically, check the pulse.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Horsehead Homestead. Built on dirt, dreams, and coffee.</p>
+    </footer>
+
+</body>
+</html>
