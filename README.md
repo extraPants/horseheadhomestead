@@ -26,6 +26,10 @@ The site uses the following Google Fonts:
 *   `Caveat Brush` for headings
 *   `Quicksand` for body text
 
+## Email signup
+
+The Join the Chaos form sends addresses to horseheadhomestead.com@gmail.com via FormSubmit. The first live submission sends a confirmation link to that inbox — click it or new signups will not arrive.
+
 ## License
 
 &copy; 2026 Horsehead Homestead. Built on dirt, dreams, and coffee.
