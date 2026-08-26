@@ -113,11 +113,6 @@
             background: #465341;
         }
 
-        .signup-form button:disabled {
-            opacity: 0.7;
-            cursor: wait;
-        }
-
         .hp {
             position: absolute;
             left: -10000px;
@@ -320,59 +315,11 @@
 
     <script>
     (function () {
-        var form = document.getElementById("chaos-form");
         var status = document.getElementById("chaos-status");
-        var button = form.querySelector('button[type="submit"]');
-        var endpoint = "https://formsubmit.co/ajax/horseheadhomestead.com@gmail.com";
-
-        function setStatus(kind, text) {
-            status.className = "signup-status " + kind;
-            status.textContent = text;
-        }
-
         if (new URLSearchParams(window.location.search).get("joined") === "1") {
-            setStatus("ok", "You're on the porch. Chaos incoming.");
+            status.className = "signup-status ok";
+            status.textContent = "You're on the porch. Chaos incoming.";
         }
-
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
-            if (form.querySelector('[name="_honey"]').value) {
-                setStatus("ok", "You're on the porch. Chaos incoming.");
-                return;
-            }
-            var email = form.email.value.trim();
-            if (!email) return;
-
-            button.disabled = true;
-            setStatus("", "Pulling up a chair...");
-
-            fetch(endpoint, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                },
-                body: JSON.stringify({
-                    email: email,
-                    _subject: "Join the Chaos — new porch visitor",
-                    _template: "table",
-                    _captcha: "false"
-                })
-            }).then(function (res) { return res.json().then(function (data) { return { res: res, data: data }; }); })
-            .then(function (result) {
-                if (result.res.ok && result.data && result.data.success !== "false") {
-                    form.reset();
-                    setStatus("ok", "You're on the porch. Chaos incoming.");
-                } else {
-                    var msg = (result.data && result.data.message) ? result.data.message : "Couldn't sign you up. Try again in a minute.";
-                    setStatus("err", msg);
-                }
-            }).catch(function () {
-                setStatus("err", "Couldn't reach the porch. Try again in a minute.");
-            }).finally(function () {
-                button.disabled = false;
-            });
-        });
     })();
     </script>
 
