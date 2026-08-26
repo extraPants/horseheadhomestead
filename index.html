@@ -109,6 +109,40 @@
             background: #465341;
         }
 
+        .signup-form button:disabled {
+            opacity: 0.7;
+            cursor: wait;
+        }
+
+        .hp {
+            position: absolute;
+            left: -10000px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+
+        .signup-note {
+            margin: 14px auto 0;
+            max-width: 500px;
+            font-size: 0.85rem;
+            color: rgba(250, 247, 242, 0.85);
+        }
+
+        .signup-note a {
+            color: var(--accent);
+        }
+
+        .signup-status {
+            margin: 16px auto 0;
+            max-width: 500px;
+            font-weight: 600;
+            min-height: 1.4em;
+        }
+
+        .signup-status.ok { color: var(--accent); }
+        .signup-status.err { color: #f3c1b6; }
+
         /* Main Content / Grid */
         main {
             max-width: 1200px;
@@ -172,6 +206,10 @@
             font-size: 0.9rem;
         }
 
+        footer a {
+            color: var(--accent);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .logo-area h1 { font-size: 2.5rem; }
@@ -202,10 +240,17 @@
 
         <div class="coming-soon-badge">Coming Soon</div>
 
-        <form class="signup-form" action="#" method="POST">
-            <input type="email" placeholder="Enter your email for homestead updates..." required>
+        <form class="signup-form" id="chaos-form" action="https://formsubmit.co/horseheadhomestead.com@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="Join the Chaos — new porch visitor">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="https://horseheadhomestead.com/?joined=1">
+            <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off">
+            <input type="email" name="email" placeholder="Enter your email for homestead updates..." required autocomplete="email">
             <button type="submit">Join the Chaos</button>
         </form>
+        <p class="signup-note">Homestead updates only. We don't sell your email. <a href="privacy.html">Privacy</a></p>
+        <p class="signup-status" id="chaos-status" role="status" aria-live="polite"></p>
     </header>
 
     <main>
@@ -218,7 +263,7 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-icon"> 🐓 </div>
-                    <h3>Chickens & Dogs</h3>
+                    <h3>Chickens &amp; Dogs</h3>
                     <p>Chasing heritage breeds, gathering breakfast, and keeping the pups out of the coop (usually).</p>
                 </div>
             </div>
@@ -226,7 +271,7 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-icon"> 🌱 </div>
-                    <h3>Gardens & Fairy Magic</h3>
+                    <h3>Gardens &amp; Fairy Magic</h3>
                     <p>Sustaining a family of 9 with homegrown veggies while building miniature enchanted worlds in the roots.</p>
                 </div>
             </div>
@@ -234,7 +279,7 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-icon"> 📚 </div>
-                    <h3>Homeschool & Games</h3>
+                    <h3>Homeschool &amp; Games</h3>
                     <p>Where lessons turn into custom-made board games and recess consists of epic backyard trick shot challenges.</p>
                 </div>
             </div>
@@ -242,7 +287,7 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-icon"> 🪵 </div>
-                    <h3>Wood, Sweat & Tears</h3>
+                    <h3>Wood, Sweat &amp; Tears</h3>
                     <p>Chopping, stacking, and prepping for winter. It's the ultimate gym membership, and everyone's invited.</p>
                 </div>
             </div>
@@ -250,7 +295,7 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-icon"> 🥖 </div>
-                    <h3>Baking & Cooking</h3>
+                    <h3>Baking &amp; Cooking</h3>
                     <p>Mass-producing sourdough, experimental wood-fired recipes, and feeding a small army three times a day.</p>
                 </div>
             </div>
@@ -266,8 +311,66 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 Horsehead Homestead. Built on dirt, dreams, and coffee.</p>
+        <p>&copy; 2026 Horsehead Homestead. Built on dirt, dreams, and coffee. · <a href="privacy.html">Privacy</a></p>
     </footer>
+
+    <script>
+    (function () {
+        var form = document.getElementById("chaos-form");
+        var status = document.getElementById("chaos-status");
+        var button = form.querySelector('button[type="submit"]');
+        var endpoint = "https://formsubmit.co/ajax/horseheadhomestead.com@gmail.com";
+
+        function setStatus(kind, text) {
+            status.className = "signup-status " + kind;
+            status.textContent = text;
+        }
+
+        if (new URLSearchParams(window.location.search).get("joined") === "1") {
+            setStatus("ok", "You're on the porch. Chaos incoming.");
+        }
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            if (form.querySelector('[name="_honey"]').value) {
+                setStatus("ok", "You're on the porch. Chaos incoming.");
+                return;
+            }
+            var email = form.email.value.trim();
+            if (!email) return;
+
+            button.disabled = true;
+            setStatus("", "Pulling up a chair...");
+
+            fetch(endpoint, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({
+                    email: email,
+                    _subject: "Join the Chaos — new porch visitor",
+                    _template: "table",
+                    _captcha: "false"
+                })
+            }).then(function (res) { return res.json().then(function (data) { return { res: res, data: data }; }); })
+            .then(function (result) {
+                if (result.res.ok && result.data && result.data.success !== "false") {
+                    form.reset();
+                    setStatus("ok", "You're on the porch. Chaos incoming.");
+                } else {
+                    var msg = (result.data && result.data.message) ? result.data.message : "Couldn't sign you up. Try again in a minute.";
+                    setStatus("err", msg);
+                }
+            }).catch(function () {
+                setStatus("err", "Couldn't reach the porch. Try again in a minute.");
+            }).finally(function () {
+                button.disabled = false;
+            });
+        });
+    })();
+    </script>
 
 </body>
 </html>
